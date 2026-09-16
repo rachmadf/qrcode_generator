@@ -17,7 +17,9 @@
 
     <!-- Header -->
     <header class="bg-white border-bottom">
+
         <nav class="navbar navbar-expand-lg">
+
             <div class="container">
 
                 <a
@@ -33,7 +35,9 @@
                 </span>
 
             </div>
+
         </nav>
+
     </header>
 
 
@@ -54,245 +58,454 @@
         </div>
 
 
-        <!-- Generator -->
-        <div class="row justify-content-center">
-
-            <div class="col-12 col-md-10 col-lg-8">
-
-                <div class="row g-4">
-
-                    <!-- Input section -->
-                    <div class="col-12 col-lg-7">
-
-                        <div class="card shadow-sm h-100">
-                            <div class="card-body p-4">
-
-                                <h2 class="h5 fw-bold mb-4">
-                                    Create QR Code
-                                </h2>
-
-                                <form method="POST">
-
-                                    <!-- Data input -->
-                                    <div class="mb-4">
-
-                                        <label
-                                            for="data"
-                                            class="form-label fw-semibold"
-                                        >
-                                            Text or URL
-                                        </label>
-
-                                        <textarea
-                                            id="data"
-                                            name="data"
-                                            class="form-control"
-                                            rows="6"
-                                            maxlength="2953"
-                                            placeholder="Enter text, URL, contact information, or other data"
-                                            required
-                                        >{{ data_value }}</textarea>
-
-                                        <div
-                                            class="form-text d-flex justify-content-between"
-                                        >
-                                            <span>
-                                                Enter the information you want
-                                                to encode.
-                                            </span>
-
-                                            <span id="characterCount">
-                                                0 / 2953
-                                            </span>
-                                        </div>
-
-                                    </div>
+        <!-- Three-column generator -->
+        <div class="row g-4 justify-content-center">
 
 
-                                    <!-- Filename -->
-                                    <div class="mb-4">
+            <!-- ================================================== -->
+            <!-- 1. INPUT -->
+            <!-- ================================================== -->
 
-                                        <label
-                                            for="filename"
-                                            class="form-label fw-semibold"
-                                        >
-                                            Filename
-                                        </label>
+            <div class="col-12 col-lg-5">
 
-                                        <div class="input-group">
+                <div class="card shadow-sm h-100">
 
-                                            <input
-                                                type="text"
-                                                id="filename"
-                                                name="filename"
-                                                class="form-control"
-                                                value="{{ filename_value }}"
-                                                placeholder="qrcode"
-                                                maxlength="100"
-                                            >
+                    <div class="card-body p-4">
 
-                                            <span class="input-group-text">
-                                                .png
-                                            </span>
+                        <div class="text-center mb-4">
 
-                                        </div>
+                            <span class="badge text-bg-primary mb-2">
+                                1
+                            </span>
 
-                                        <div class="form-text">
-                                            Use letters, numbers, spaces,
-                                            underscores, hyphens, or periods.
-                                        </div>
+                            <h2 class="h5 fw-bold mb-1">
+                                Input
+                            </h2>
 
-                                    </div>
+                            <p class="text-muted small mb-0">
+                                Enter the information to encode.
+                            </p>
+
+                        </div>
 
 
-                                    <div class="d-grid gap-2 d-sm-flex">
+                        <form method="POST" id="qrForm">
 
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary btn-lg flex-grow-1"
-                                        >
-                                            Generate QR Code
-                                        </button>
+                            <!-- Data input -->
+                            <div class="mb-4">
 
-                                        <button
-                                            type="button"
-                                            class="btn btn-outline-secondary btn-lg"
-                                            id="clearButton"
-                                        >
-                                            Clear
-                                        </button>
+                                <label
+                                    for="data"
+                                    class="form-label fw-semibold"
+                                >
+                                    Text or URL
+                                </label>
 
-                                    </div>
+                                <textarea
+                                    id="data"
+                                    name="data"
+                                    class="form-control"
+                                    rows="7"
+                                    maxlength="2953"
+                                    placeholder="Enter text, URL, contact information, or other data"
+                                    required
+                                >{{ data_value }}</textarea>
 
-                                </form>
+                                <div
+                                    class="form-text d-flex justify-content-between"
+                                >
+                                    <span>
+                                        Information to encode.
+                                    </span>
+
+                                    <span id="characterCount">
+                                        0 / 2953
+                                    </span>
+                                </div>
 
                             </div>
+
+
+                            <!-- Filename -->
+                            <div class="mb-4">
+
+                                <label
+                                    for="filename"
+                                    class="form-label fw-semibold"
+                                >
+                                    Filename
+                                </label>
+
+                                <div class="input-group">
+
+                                    <input
+                                        type="text"
+                                        id="filename"
+                                        name="filename"
+                                        class="form-control"
+                                        value="{{ filename_value }}"
+                                        placeholder="qrcode"
+                                        maxlength="100"
+                                    >
+
+                                    <span class="input-group-text">
+                                        .png
+                                    </span>
+
+                                </div>
+
+                                <div class="form-text">
+                                    Letters, numbers, spaces, underscores,
+                                    hyphens, and periods.
+                                </div>
+
+                            </div>
+
+
+                            <!-- Action buttons -->
+                            <div class="d-grid gap-2 d-sm-flex">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary btn-lg flex-grow-1"
+                                >
+                                    Generate QR Code
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary btn-lg"
+                                    id="clearButton"
+                                >
+                                    Clear
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================== -->
+            <!-- 2. CUSTOMIZATION -->
+            <!-- ================================================== -->
+
+            <div class="col-12 col-md-6 col-lg-3">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body p-4">
+
+                        <div class="text-center mb-4">
+
+                            <span class="badge text-bg-primary mb-2">
+                                2
+                            </span>
+
+                            <h2 class="h5 fw-bold mb-1">
+                                Customization
+                            </h2>
+
+                            <p class="text-muted small mb-0">
+                                Adjust the appearance of your QR code.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Foreground -->
+                        <div class="mb-4">
+
+                            <label
+                                for="foreground_color"
+                                class="form-label fw-semibold"
+                            >
+                                Foreground
+                            </label>
+
+                            <div class="input-group">
+
+                                <input
+                                    type="color"
+                                    id="foreground_color"
+                                    name="foreground_color"
+                                    form="qrForm"
+                                    class="form-control form-control-color"
+                                    value="{{ foreground_color }}"
+                                    title="Choose foreground color"
+                                >
+
+                                <span
+                                    class="input-group-text flex-grow-1"
+                                    id="foregroundValue"
+                                >
+                                    {{ foreground_color }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Background -->
+                        <div class="mb-4">
+
+                            <label
+                                for="background_color"
+                                class="form-label fw-semibold"
+                            >
+                                Background
+                            </label>
+
+                            <div class="input-group">
+
+                                <input
+                                    type="color"
+                                    id="background_color"
+                                    name="background_color"
+                                    form="qrForm"
+                                    class="form-control form-control-color"
+                                    value="{{ background_color }}"
+                                    title="Choose background color"
+                                >
+
+                                <span
+                                    class="input-group-text flex-grow-1"
+                                    id="backgroundValue"
+                                >
+                                    {{ background_color }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- QR Size -->
+                        <div class="mb-4">
+
+                            <label
+                                for="box_size"
+                                class="form-label fw-semibold"
+                            >
+                                QR Size
+                            </label>
+
+                            <select
+                                id="box_size"
+                                name="box_size"
+                                form="qrForm"
+                                class="form-select"
+                            >
+
+                                {% for size in range(1, 21) %}
+
+                                    <option
+                                        value="{{ size }}"
+                                        {% if box_size == size %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        {{ size }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                            <div class="form-text">
+                                Controls module size.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Border -->
+                        <div class="mb-4">
+
+                            <label
+                                for="border"
+                                class="form-label fw-semibold"
+                            >
+                                Border
+                            </label>
+
+                            <select
+                                id="border"
+                                name="border"
+                                form="qrForm"
+                                class="form-select"
+                            >
+
+                                {% for value in range(0, 11) %}
+
+                                    <option
+                                        value="{{ value }}"
+                                        {% if border == value %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        {{ value }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                            <div class="form-text">
+                                Width in QR modules.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Contrast note -->
+                        <div class="alert alert-light border small mb-0">
+
+                            <strong>Tip:</strong>
+                            Use strong contrast between foreground and
+                            background for reliable scanning.
+
                         </div>
 
                     </div>
 
-                    <!-- Preview section -->
-                    <div class="col-12 col-lg-5">
+                </div>
 
-                        <div class="card shadow-sm h-100 border-0">
-
-                            <div class="card-body p-4 d-flex flex-column">
-
-                                <div class="text-center mb-4">
-
-                                    <h2 class="h5 fw-bold mb-1">
-                                        QR Code Preview
-                                    </h2>
-
-                                    <p class="text-muted small mb-0">
-                                        Your generated QR code
-                                    </p>
-
-                                </div>
+            </div>
 
 
-                                {% if error %}
+            <!-- ================================================== -->
+            <!-- 3. QR PREVIEW -->
+            <!-- ================================================== -->
 
-                                    <div
-                                        class="alert alert-danger"
-                                        role="alert"
-                                    >
-                                        {{ error }}
-                                    </div>
+            <div class="col-12 col-md-6 col-lg-4">
 
-                                {% endif %}
+                <div class="card shadow-sm h-100 border-0">
 
+                    <div
+                        class="card-body p-4 d-flex flex-column"
+                        id="previewContainer"
+                    >
 
-                                {% if qr_filename %}
+                        <div class="text-center mb-4">
 
-                                    <!-- QR image area -->
-                                    <div
-                                        class="d-flex justify-content-center align-items-center
-                                               bg-light rounded p-4 mb-3"
-                                        style="min-height: 320px;"
-                                    >
+                            <span class="badge text-bg-primary mb-2">
+                                3
+                            </span>
 
-                                        <img
-                                            src="{{ url_for(
-                                                'static',
-                                                filename='generated/' + qr_filename
-                                            ) }}"
-                                            alt="Generated QR Code"
-                                            class="img-fluid"
-                                            style="max-width: 280px;"
-                                        >
+                            <h2 class="h5 fw-bold mb-1">
+                                QR Code Preview
+                            </h2>
 
-                                    </div>
+                            <p class="text-muted small mb-0">
+                                Your generated QR code
+                            </p>
+
+                        </div>
 
 
-                                    <!-- Generated filename -->
-                                    <div class="text-center mb-3">
+                        {% if error %}
 
-                                        <span class="text-muted small d-block">
-                                            Generated file
-                                        </span>
+                            <div
+                                class="alert alert-danger"
+                                role="alert"
+                            >
+                                {{ error }}
+                            </div>
 
-                                        <span
-                                            class="fw-semibold text-break"
-                                        >
-                                            {{ qr_filename }}
-                                        </span>
-
-                                    </div>
+                        {% endif %}
 
 
-                                    <!-- Download -->
-                                    <a
-                                        href="{{ url_for(
-                                            'static',
-                                            filename='generated/' + qr_filename
-                                        ) }}"
-                                        class="btn btn-success btn-lg w-100 mt-auto"
-                                        download="{{ qr_filename }}"
-                                        aria-label="Download {{ qr_filename }} as a PNG image"
-                                    >
-                                        Download PNG
-                                    </a>
+                        {% if qr_filename %}
 
+                            <!-- QR image area -->
+                            <div
+                                class="d-flex justify-content-center align-items-center
+                                       bg-secondary rounded p-3 mb-3 flex-grow-1"
+                                style="min-height: 320px;"
+                            >
 
-                                {% else %}
-
-                                    <!-- Empty preview state -->
-                                    <div
-                                        class="d-flex flex-column justify-content-center
-                                               align-items-center text-center
-                                               bg-light rounded flex-grow-1"
-                                        style="min-height: 320px;"
-                                    >
-
-                                        <div
-                                            class="border rounded-circle
-                                                   d-flex justify-content-center
-                                                   align-items-center mb-3"
-                                            style="width: 72px; height: 72px;"
-                                        >
-                                            <span class="fs-2 text-muted">
-                                                ▦
-                                            </span>
-                                        </div>
-
-                                        <h3 class="h6 fw-semibold">
-                                            No QR Code Yet
-                                        </h3>
-
-                                        <p class="text-muted small mb-0 px-3">
-                                            Enter your data and click
-                                            <strong>Generate QR Code</strong>
-                                            to create a QR code.
-                                        </p>
-
-                                    </div>
-
-                                {% endif %}
+                                <img
+                                    src="{{ url_for(
+                                        'static',
+                                        filename='generated/' + qr_filename
+                                    ) }}"
+                                    alt="Generated QR Code"
+                                    class="img-fluid"
+                                    style="max-width: 280px;"
+                                >
 
                             </div>
 
-                        </div>
+
+                            <!-- Generated filename -->
+                            <div class="text-center mb-3">
+
+                                <span class="text-muted small d-block">
+                                    Generated file
+                                </span>
+
+                                <span class="fw-semibold text-break">
+                                    {{ qr_filename }}
+                                </span>
+
+                            </div>
+
+
+                            <!-- Download -->
+                            <a
+                                href="{{ url_for(
+                                    'static',
+                                    filename='generated/' + qr_filename
+                                ) }}"
+                                class="btn btn-success btn-lg w-100 mt-auto"
+                                download="{{ qr_filename }}"
+                                aria-label="Download {{ qr_filename }} as a PNG image"
+                            >
+                                Download PNG
+                            </a>
+
+
+                        {% else %}
+
+                            <!-- Empty preview state -->
+                            <div
+                                class="d-flex flex-column justify-content-center
+                                       align-items-center text-center
+                                       bg-light rounded flex-grow-1"
+                                style="min-height: 320px;"
+                            >
+
+                                <div
+                                    class="border rounded-circle
+                                           d-flex justify-content-center
+                                           align-items-center mb-3"
+                                    style="width: 72px; height: 72px;"
+                                >
+                                    <span class="fs-2 text-muted">
+                                        ▦
+                                    </span>
+                                </div>
+
+                                <h3 class="h6 fw-semibold">
+                                    No QR Code Yet
+                                </h3>
+
+                                <p class="text-muted small mb-0 px-3">
+                                    Enter your data and customize the QR
+                                    code, then click
+                                    <strong>Generate QR Code</strong>.
+                                </p>
+
+                            </div>
+
+                        {% endif %}
 
                     </div>
 
@@ -307,6 +520,7 @@
 
     <!-- Footer -->
     <footer class="py-4 mt-4">
+
         <div class="container text-center">
 
             <small class="text-muted">
@@ -314,6 +528,7 @@
             </small>
 
         </div>
+
     </footer>
 
 
@@ -323,52 +538,154 @@
     ></script>
 
 
-   <script>
+    <!-- Page JavaScript -->
+    <script>
+
         const form = document.querySelector("form");
-        const dataInput = document.getElementById("data");
-        const filenameInput = document.getElementById("filename");
-        const characterCount = document.getElementById("characterCount");
-        const clearButton = document.getElementById("clearButton");
-        const previewContainer = document.getElementById("previewContainer");
+
+        const dataInput =
+            document.getElementById("data");
+
+        const filenameInput =
+            document.getElementById("filename");
+
+        const characterCount =
+            document.getElementById("characterCount");
+
+        const foregroundInput =
+            document.getElementById("foreground_color");
+
+        const backgroundInput =
+            document.getElementById("background_color");
+
+        const foregroundValue =
+            document.getElementById("foregroundValue");
+
+        const backgroundValue =
+            document.getElementById("backgroundValue");
+
+        const clearButton =
+            document.getElementById("clearButton");
+
+        const previewContainer =
+            document.getElementById("previewContainer");
 
 
         function updateCharacterCount() {
+
             characterCount.textContent =
                 `${dataInput.value.length} / 2953`;
+
         }
 
 
-        dataInput.addEventListener("input", updateCharacterCount);
+        function updateColorValues() {
+
+            foregroundValue.textContent =
+                foregroundInput.value.toUpperCase();
+
+            backgroundValue.textContent =
+                backgroundInput.value.toUpperCase();
+
+        }
 
 
-        clearButton.addEventListener("click", function () {
+        dataInput.addEventListener(
+            "input",
+            updateCharacterCount
+        );
 
-            // Clear form fields.
-            dataInput.value = "";
-            filenameInput.value = "";
 
-            // Reset character counter.
-            updateCharacterCount();
+        foregroundInput.addEventListener(
+            "input",
+            updateColorValues
+        );
 
-            // Restore preview placeholder.
-            previewContainer.innerHTML = `
-                <h2 class="h5 fw-bold mb-4">
-                    QR Code Preview
-                </h2>
 
-                <div class="text-muted py-5">
-                    <p class="mb-0">
-                        Your QR code will appear here.
-                    </p>
-                </div>
-            `;
+        backgroundInput.addEventListener(
+            "input",
+            updateColorValues
+        );
 
-            // Put the cursor back in the data field.
-            dataInput.focus();
-        });
+
+        clearButton.addEventListener(
+            "click",
+            function () {
+
+                // Clear input fields.
+                dataInput.value = "";
+                filenameInput.value = "qrcode";
+
+                // Reset customization.
+                foregroundInput.value = "#000000";
+                backgroundInput.value = "#FFFFFF";
+
+                document.getElementById("box_size").value = "10";
+                document.getElementById("border").value = "4";
+
+                // Reset counters and color labels.
+                updateCharacterCount();
+                updateColorValues();
+
+                // Restore preview.
+                previewContainer.innerHTML = `
+                    <div class="text-center mb-4">
+
+                        <span class="badge text-bg-primary mb-2">
+                            3
+                        </span>
+
+                        <h2 class="h5 fw-bold mb-1">
+                            QR Code Preview
+                        </h2>
+
+                        <p class="text-muted small mb-0">
+                            Your generated QR code
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="d-flex flex-column justify-content-center
+                               align-items-center text-center
+                               bg-light rounded flex-grow-1"
+                        style="min-height: 320px;"
+                    >
+
+                        <div
+                            class="border rounded-circle
+                                   d-flex justify-content-center
+                                   align-items-center mb-3"
+                            style="width: 72px; height: 72px;"
+                        >
+                            <span class="fs-2 text-muted">
+                                ▦
+                            </span>
+                        </div>
+
+                        <h3 class="h6 fw-semibold">
+                            No QR Code Yet
+                        </h3>
+
+                        <p class="text-muted small mb-0 px-3">
+                            Enter your data and customize the QR
+                            code, then click
+                            <strong>Generate QR Code</strong>.
+                        </p>
+
+                    </div>
+                `;
+
+                // Return focus to the data field.
+                dataInput.focus();
+
+            }
+        );
 
 
         updateCharacterCount();
+        updateColorValues();
+
     </script>
 
 </body>
