@@ -171,22 +171,30 @@
 
                     </div>
 
-
                     <!-- Preview section -->
                     <div class="col-12 col-lg-5">
 
-                        <div class="card shadow-sm h-100">
-                            <div class="card-body p-4 text-center" id="previewContainer">
+                        <div class="card shadow-sm h-100 border-0">
 
-                                <h2 class="h5 fw-bold mb-4">
-                                    QR Code Preview
-                                </h2>
+                            <div class="card-body p-4 d-flex flex-column">
+
+                                <div class="text-center mb-4">
+
+                                    <h2 class="h5 fw-bold mb-1">
+                                        QR Code Preview
+                                    </h2>
+
+                                    <p class="text-muted small mb-0">
+                                        Your generated QR code
+                                    </p>
+
+                                </div>
 
 
                                 {% if error %}
 
                                     <div
-                                        class="alert alert-danger text-start"
+                                        class="alert alert-danger"
                                         role="alert"
                                     >
                                         {{ error }}
@@ -197,32 +205,82 @@
 
                                 {% if qr_filename %}
 
-                                    <img
-                                        src="{{ url_for(
-                                            'static',
-                                            filename='generated/' + qr_filename
-                                        ) }}"
-                                        alt="Generated QR Code"
-                                        class="img-fluid"
+                                    <!-- QR image area -->
+                                    <div
+                                        class="d-flex justify-content-center align-items-center
+                                               bg-light rounded p-4 mb-3"
+                                        style="min-height: 320px;"
                                     >
 
+                                        <img
+                                            src="{{ url_for(
+                                                'static',
+                                                filename='generated/' + qr_filename
+                                            ) }}"
+                                            alt="Generated QR Code"
+                                            class="img-fluid"
+                                            style="max-width: 280px;"
+                                        >
+
+                                    </div>
+
+
+                                    <!-- Generated filename -->
+                                    <div class="text-center mb-3">
+
+                                        <span class="text-muted small">
+                                            Generated file
+                                        </span>
+
+                                        <div class="fw-semibold text-break">
+                                            {{ qr_filename }}
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Download -->
                                     <a
                                         href="{{ url_for(
                                             'static',
                                             filename='generated/' + qr_filename
                                         ) }}"
-                                        class="btn btn-success w-100 mt-4"
+                                        class="btn btn-success btn-lg w-100 mt-auto"
                                         download
                                     >
                                         Download QR Code
                                     </a>
 
+
                                 {% else %}
 
-                                    <div class="text-muted py-5">
+                                    <!-- Empty preview state -->
+                                    <div
+                                        class="d-flex flex-column justify-content-center
+                                               align-items-center text-center
+                                               bg-light rounded flex-grow-1"
+                                        style="min-height: 320px;"
+                                    >
 
-                                        <p class="mb-0">
-                                            Your QR code will appear here.
+                                        <div
+                                            class="border rounded-circle
+                                                   d-flex justify-content-center
+                                                   align-items-center mb-3"
+                                            style="width: 72px; height: 72px;"
+                                        >
+                                            <span class="fs-2 text-muted">
+                                                ▦
+                                            </span>
+                                        </div>
+
+                                        <h3 class="h6 fw-semibold">
+                                            No QR Code Yet
+                                        </h3>
+
+                                        <p class="text-muted small mb-0 px-3">
+                                            Enter your data and click
+                                            <strong>Generate QR Code</strong>
+                                            to create a QR code.
                                         </p>
 
                                     </div>
@@ -230,6 +288,7 @@
                                 {% endif %}
 
                             </div>
+
                         </div>
 
                     </div>
