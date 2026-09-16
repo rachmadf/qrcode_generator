@@ -5,6 +5,7 @@ import qrcode
 def generate_qr_code(
     data: str,
     filename: str = "qrcode.png",
+    output_dir: str = "output",
     box_size: int = 10,
     border: int = 4,
     fill_color: str = "black",
@@ -17,6 +18,7 @@ def generate_qr_code(
         data: The text, URL, or other data to encode.
         filename: Output filename. The .png extension is added automatically
             if it is not provided.
+        output_dir: Directory where the QR code image will be saved.
         box_size: Size of each QR code module.
         border: Width of the QR code border in modules.
         fill_color: Foreground color of the QR code.
@@ -26,7 +28,7 @@ def generate_qr_code(
         The absolute path to the generated QR code image.
 
     Raises:
-        ValueError: If the data is empty or filename is invalid.
+        ValueError: If the data, filename, or output directory is invalid.
     """
 
     # Validate data
@@ -52,6 +54,18 @@ def generate_qr_code(
     if border < 0:
         raise ValueError("border cannot be negative.")
 
+    # Validate output directory
+    output_dir = output_dir.strip()
+
+    if not output_dir:
+        raise ValueError("Output directory cannot be empty.")
+
+    # Create output directory if it does not exist
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Build complete output path
+    output_path = os.path.join(output_dir, filename)
+
     # Create QR code
     qr = qrcode.QRCode(
         version=1,
@@ -70,9 +84,9 @@ def generate_qr_code(
     )
 
     # Save image
-    img.save(filename)
+    img.save(output_path)
 
-    return os.path.abspath(filename)
+    return os.path.abspath(output_path)
 
 
 if __name__ == "__main__":
