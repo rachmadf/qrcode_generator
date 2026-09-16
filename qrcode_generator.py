@@ -40,7 +40,13 @@ def generate_qr_code(data, filename="qrcode.png", box_size=10, border=4, fill_co
 if __name__ == "__main__":
     # Example usage
     data = input("Enter the data for the QR code: ")
-    filename = input("Enter filename to save QR code (default: qrcode.png): ") or "qrcode.png"
+    
+    filename = input(
+        "Enter filename to save QR code (default: qrcode): "
+    ).strip() or "qrcode"
+
+    if not filename.lower().endswith(".png"):
+        filename += ".png"
     
     path = generate_qr_code(data, filename)
     print(f"QR code has been generated and saved to: {path}")
