@@ -228,13 +228,15 @@
                                     <!-- Generated filename -->
                                     <div class="text-center mb-3">
 
-                                        <span class="text-muted small">
+                                        <span class="text-muted small d-block">
                                             Generated file
                                         </span>
 
-                                        <div class="fw-semibold text-break">
+                                        <span
+                                            class="fw-semibold text-break"
+                                        >
                                             {{ qr_filename }}
-                                        </div>
+                                        </span>
 
                                     </div>
 
@@ -246,9 +248,10 @@
                                             filename='generated/' + qr_filename
                                         ) }}"
                                         class="btn btn-success btn-lg w-100 mt-auto"
-                                        download
+                                        download="{{ qr_filename }}"
+                                        aria-label="Download {{ qr_filename }} as a PNG image"
                                     >
-                                        Download QR Code
+                                        Download PNG
                                     </a>
 
 
