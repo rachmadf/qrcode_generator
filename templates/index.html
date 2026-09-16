@@ -13,36 +13,68 @@
     >
 </head>
 
-<body>
+<body class="bg-light">
 
+    <!-- Header -->
+    <header class="bg-white border-bottom">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a
+                    class="navbar-brand d-flex align-items-center fw-bold"
+                    href="/"
+                >
+                    <span class="me-2 fs-4">▦</span>
+                    QR Generator
+                </a>
+
+                <span class="navbar-text text-muted d-none d-md-block">
+                    Portfolio Tool
+                </span>
+
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Main Content -->
     <main class="container py-5">
 
+        <!-- Page Heading -->
+        <div class="text-center mb-5">
+
+            <h1 class="display-5 fw-bold">
+                QR Code Generator
+            </h1>
+
+            <p class="lead text-muted mb-0">
+                Create QR codes quickly from text, URLs, and other data.
+            </p>
+
+        </div>
+
+
+        <!-- Generator -->
         <div class="row justify-content-center">
 
             <div class="col-12 col-md-10 col-lg-8">
-
-                <div class="text-center mb-5">
-                    <h1 class="fw-bold">QR Code Generator</h1>
-                    <p class="text-muted">
-                        Generate a QR code from text or a URL.
-                    </p>
-                </div>
 
                 <div class="row g-4">
 
                     <!-- Input section -->
                     <div class="col-12 col-lg-7">
 
-                        <div class="card shadow-sm">
+                        <div class="card shadow-sm h-100">
                             <div class="card-body p-4">
 
-                                <h2 class="h5 mb-4">
+                                <h2 class="h5 fw-bold mb-4">
                                     Create QR Code
                                 </h2>
 
                                 <form method="POST">
 
                                     <div class="mb-3">
+
                                         <label
                                             for="data"
                                             class="form-label"
@@ -58,9 +90,12 @@
                                             placeholder="Enter text or URL"
                                             required
                                         ></textarea>
+
                                     </div>
 
+
                                     <div class="mb-4">
+
                                         <label
                                             for="filename"
                                             class="form-label"
@@ -79,7 +114,9 @@
                                         <div class="form-text">
                                             .png will be added automatically.
                                         </div>
+
                                     </div>
+
 
                                     <button
                                         type="submit"
@@ -95,24 +132,29 @@
 
                     </div>
 
+
                     <!-- Preview section -->
                     <div class="col-12 col-lg-5">
 
                         <div class="card shadow-sm h-100">
                             <div class="card-body p-4 text-center">
 
-                                <h2 class="h5 mb-4">
+                                <h2 class="h5 fw-bold mb-4">
                                     QR Code Preview
                                 </h2>
 
+
                                 {% if error %}
+
                                     <div
-                                        class="alert alert-danger"
+                                        class="alert alert-danger text-start"
                                         role="alert"
                                     >
                                         {{ error }}
                                     </div>
+
                                 {% endif %}
+
 
                                 {% if qr_filename %}
 
@@ -139,9 +181,11 @@
                                 {% else %}
 
                                     <div class="text-muted py-5">
+
                                         <p class="mb-0">
                                             Your QR code will appear here.
                                         </p>
+
                                     </div>
 
                                 {% endif %}
@@ -158,6 +202,19 @@
         </div>
 
     </main>
+
+
+    <!-- Footer -->
+    <footer class="py-4 mt-4">
+        <div class="container text-center">
+
+            <small class="text-muted">
+                QR Code Generator
+            </small>
+
+        </div>
+    </footer>
+
 
     <!-- Bootstrap 5 JS -->
     <script
