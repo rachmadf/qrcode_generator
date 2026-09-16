@@ -1,6 +1,38 @@
 import os
+import re
+
 import qrcode
 
+def validate_filename(filename: str) -> str:
+    """
+    Validate and normalize the QR code output filename.
+
+    The filename must contain only a simple filename and must not
+    include directory paths or path traversal characters.
+    """
+
+    filename = filename.strip()
+
+    if not filename:
+        raise ValueError("QR code filename cannot be empty.")
+
+    # Prevent directory traversal and path separators
+    if os.path.basename(filename) != filename:
+        raise ValueError("Filename must not contain a directory path.")
+
+    # Allow letters, numbers, spaces, underscores, hyphens, and periods
+    if not re.fullmatch(r"[A-Za-z0-9 _.-]+", filename):
+        raise ValueError(
+            "Filename contains invalid characters. "
+            "Use letters, numbers, spaces, underscores, hyphens, or periods."
+        )
+
+    # Add .png automatically
+    if not filename.lower().endswith(".png"):
+        filename += ".png"
+
+    return filename
+    
 
 def generate_qr_code(
     data: str,
@@ -38,7 +70,7 @@ def generate_qr_code(
         raise ValueError("QR code data cannot be empty.")
 
     # Validate filename
-    filename = filename.strip()
+    filename = validate_filename(filename)
 
     if not filename:
         raise ValueError("QR code filename cannot be empty.")
