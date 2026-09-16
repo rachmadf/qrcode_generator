@@ -13,9 +13,12 @@ def index():
     qr_filename = None
     error = None
 
+    data_value = ""
+    filename_value = "qrcode"
+
     if request.method == "POST":
-        data = request.form.get("data", "")
-        filename = request.form.get("filename", "").strip() or "qrcode"
+        data_value = request.form.get("data", "")
+        filename_value = request.form.get("filename", "").strip() or "qrcode"
 
         output_dir = os.path.join(
             app.root_path,
@@ -24,18 +27,19 @@ def index():
         )
 
         try:
-            generate_qr_code(
-                data=data,
-                filename=filename,
+            output_path = generate_qr_code(
+                data=data_value,
+                filename=filename_value,
                 output_dir=output_dir,
             )
 
-            # Filename is already validated and normalized
-            # by generate_qr_code().
-            if not filename.lower().endswith(".png"):
-                filename += ".png"
+            # Use the actual generated filename.
+            qr_filename = os.path.basename(output_path)
 
-            qr_filename = filename
+            # Keep the .png extension out of the editable field
+            # because the UI displays it separately.
+            if filename_value.lower().endswith(".png"):
+                filename_value = filename_value[:-4]
 
         except ValueError as exc:
             error = str(exc)
@@ -44,6 +48,8 @@ def index():
         "index.html",
         qr_filename=qr_filename,
         error=error,
+        data_value=data_value,
+        filename_value=filename_value,
     )
 
 

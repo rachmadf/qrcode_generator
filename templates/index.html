@@ -73,11 +73,12 @@
 
                                 <form method="POST">
 
-                                    <div class="mb-3">
+                                    <!-- Data input -->
+                                    <div class="mb-4">
 
                                         <label
                                             for="data"
-                                            class="form-label"
+                                            class="form-label fw-semibold"
                                         >
                                             Text or URL
                                         </label>
@@ -86,44 +87,82 @@
                                             id="data"
                                             name="data"
                                             class="form-control"
-                                            rows="5"
-                                            placeholder="Enter text or URL"
+                                            rows="6"
+                                            maxlength="2953"
+                                            placeholder="Enter text, URL, contact information, or other data"
                                             required
-                                        ></textarea>
+                                        >{{ data_value }}</textarea>
 
-                                    </div>
-
-
-                                    <div class="mb-4">
-
-                                        <label
-                                            for="filename"
-                                            class="form-label"
+                                        <div
+                                            class="form-text d-flex justify-content-between"
                                         >
-                                            Filename
-                                        </label>
+                                            <span>
+                                                Enter the information you want
+                                                to encode.
+                                            </span>
 
-                                        <input
-                                            type="text"
-                                            id="filename"
-                                            name="filename"
-                                            class="form-control"
-                                            placeholder="qrcode"
-                                        >
-
-                                        <div class="form-text">
-                                            .png will be added automatically.
+                                            <span id="characterCount">
+                                                0 / 2953
+                                            </span>
                                         </div>
 
                                     </div>
 
 
-                                    <button
-                                        type="submit"
-                                        class="btn btn-primary w-100"
-                                    >
-                                        Generate QR Code
-                                    </button>
+                                    <!-- Filename -->
+                                    <div class="mb-4">
+
+                                        <label
+                                            for="filename"
+                                            class="form-label fw-semibold"
+                                        >
+                                            Filename
+                                        </label>
+
+                                        <div class="input-group">
+
+                                            <input
+                                                type="text"
+                                                id="filename"
+                                                name="filename"
+                                                class="form-control"
+                                                value="{{ filename_value }}"
+                                                placeholder="qrcode"
+                                                maxlength="100"
+                                            >
+
+                                            <span class="input-group-text">
+                                                .png
+                                            </span>
+
+                                        </div>
+
+                                        <div class="form-text">
+                                            Use letters, numbers, spaces,
+                                            underscores, hyphens, or periods.
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="d-grid gap-2 d-sm-flex">
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary btn-lg flex-grow-1"
+                                        >
+                                            Generate QR Code
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-secondary btn-lg"
+                                            id="clearButton"
+                                        >
+                                            Clear
+                                        </button>
+
+                                    </div>
 
                                 </form>
 
@@ -137,7 +176,7 @@
                     <div class="col-12 col-lg-5">
 
                         <div class="card shadow-sm h-100">
-                            <div class="card-body p-4 text-center">
+                            <div class="card-body p-4 text-center" id="previewContainer">
 
                                 <h2 class="h5 fw-bold mb-4">
                                     QR Code Preview
@@ -220,6 +259,55 @@
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     ></script>
+
+
+   <script>
+        const form = document.querySelector("form");
+        const dataInput = document.getElementById("data");
+        const filenameInput = document.getElementById("filename");
+        const characterCount = document.getElementById("characterCount");
+        const clearButton = document.getElementById("clearButton");
+        const previewContainer = document.getElementById("previewContainer");
+
+
+        function updateCharacterCount() {
+            characterCount.textContent =
+                `${dataInput.value.length} / 2953`;
+        }
+
+
+        dataInput.addEventListener("input", updateCharacterCount);
+
+
+        clearButton.addEventListener("click", function () {
+
+            // Clear form fields.
+            dataInput.value = "";
+            filenameInput.value = "";
+
+            // Reset character counter.
+            updateCharacterCount();
+
+            // Restore preview placeholder.
+            previewContainer.innerHTML = `
+                <h2 class="h5 fw-bold mb-4">
+                    QR Code Preview
+                </h2>
+
+                <div class="text-muted py-5">
+                    <p class="mb-0">
+                        Your QR code will appear here.
+                    </p>
+                </div>
+            `;
+
+            // Put the cursor back in the data field.
+            dataInput.focus();
+        });
+
+
+        updateCharacterCount();
+    </script>
 
 </body>
 </html>
