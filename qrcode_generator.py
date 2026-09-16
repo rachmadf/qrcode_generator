@@ -1,52 +1,93 @@
-import qrcode
-from PIL import Image
 import os
+import qrcode
 
-def generate_qr_code(data, filename="qrcode.png", box_size=10, border=4, fill_color="black", back_color="white"):
+
+def generate_qr_code(
+    data: str,
+    filename: str = "qrcode.png",
+    box_size: int = 10,
+    border: int = 4,
+    fill_color: str = "black",
+    back_color: str = "white",
+) -> str:
     """
-    Generate a QR code from the given data.
-    
+    Generate a QR code from the given data and save it as a PNG image.
+
     Args:
-        data (str): The data to encode in the QR code
-        filename (str): The filename to save the QR code image (default: "qrcode.png")
-        box_size (int): The size of each box in the QR code (default: 10)
-        border (int): The size of the border around the QR code (default: 4)
-        fill_color (str): The color of the QR code (default: "black")
-        back_color (str): The background color (default: "white")
-        
+        data: The text, URL, or other data to encode.
+        filename: Output filename. The .png extension is added automatically
+            if it is not provided.
+        box_size: Size of each QR code module.
+        border: Width of the QR code border in modules.
+        fill_color: Foreground color of the QR code.
+        back_color: Background color of the QR code.
+
     Returns:
-        str: The path to the saved QR code image
+        The absolute path to the generated QR code image.
+
+    Raises:
+        ValueError: If the data is empty or filename is invalid.
     """
-    # Create QR code instance
+
+    # Validate data
+    data = data.strip()
+
+    if not data:
+        raise ValueError("QR code data cannot be empty.")
+
+    # Validate filename
+    filename = filename.strip()
+
+    if not filename:
+        raise ValueError("QR code filename cannot be empty.")
+
+    # Add .png extension automatically
+    if not filename.lower().endswith(".png"):
+        filename += ".png"
+
+    # Validate QR code configuration
+    if box_size <= 0:
+        raise ValueError("box_size must be greater than 0.")
+
+    if border < 0:
+        raise ValueError("border cannot be negative.")
+
+    # Create QR code
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
         box_size=box_size,
-        border=border
+        border=border,
     )
-    
-    # Add data to the QR code
+
     qr.add_data(data)
     qr.make(fit=True)
-    
-    # Create an image from the QR code
-    img = qr.make_image(fill_color=fill_color, back_color=back_color)
-    
-    # Save the image
+
+    # Generate image
+    img = qr.make_image(
+        fill_color=fill_color,
+        back_color=back_color,
+    )
+
+    # Save image
     img.save(filename)
-    
+
     return os.path.abspath(filename)
 
+
 if __name__ == "__main__":
-    # Example usage
+    print("QR Code Generator")
+    print("-----------------")
+
     data = input("Enter the data for the QR code: ")
-    
+
     filename = input(
         "Enter filename to save QR code (default: qrcode): "
     ).strip() or "qrcode"
 
-    if not filename.lower().endswith(".png"):
-        filename += ".png"
-    
-    path = generate_qr_code(data, filename)
-    print(f"QR code has been generated and saved to: {path}")
+    try:
+        path = generate_qr_code(data, filename)
+        print(f"QR code has been generated and saved to: {path}")
+
+    except ValueError as error:
+        print(f"Error: {error}")
