@@ -3,36 +3,46 @@ import re
 
 import qrcode
 
+
 def validate_filename(filename: str) -> str:
     """
     Validate and normalize the QR code output filename.
 
     The filename must contain only a simple filename and must not
     include directory paths or path traversal characters.
-    """
 
+    Args:
+        filename: The requested output filename.
+
+    Returns:
+        A validated filename with a .png extension.
+
+    Raises:
+        ValueError: If the filename is empty, contains a directory path,
+            or contains invalid characters.
+    """
     filename = filename.strip()
 
     if not filename:
         raise ValueError("QR code filename cannot be empty.")
 
-    # Prevent directory traversal and path separators
+    # Prevent directory paths and path traversal.
     if os.path.basename(filename) != filename:
         raise ValueError("Filename must not contain a directory path.")
 
-    # Allow letters, numbers, spaces, underscores, hyphens, and periods
+    # Allow letters, numbers, spaces, underscores, hyphens, and periods.
     if not re.fullmatch(r"[A-Za-z0-9 _.-]+", filename):
         raise ValueError(
             "Filename contains invalid characters. "
             "Use letters, numbers, spaces, underscores, hyphens, or periods."
         )
 
-    # Add .png automatically
+    # Add .png extension automatically.
     if not filename.lower().endswith(".png"):
         filename += ".png"
 
     return filename
-    
+
 
 def generate_qr_code(
     data: str,
@@ -60,45 +70,38 @@ def generate_qr_code(
         The absolute path to the generated QR code image.
 
     Raises:
-        ValueError: If the data, filename, or output directory is invalid.
+        ValueError: If the data, filename, output directory, box size,
+            or border is invalid.
     """
-
-    # Validate data
+    # Validate data.
     data = data.strip()
 
     if not data:
         raise ValueError("QR code data cannot be empty.")
 
-    # Validate filename
+    # Validate filename.
     filename = validate_filename(filename)
 
-    if not filename:
-        raise ValueError("QR code filename cannot be empty.")
-
-    # Add .png extension automatically
-    if not filename.lower().endswith(".png"):
-        filename += ".png"
-
-    # Validate QR code configuration
+    # Validate QR code configuration.
     if box_size <= 0:
         raise ValueError("box_size must be greater than 0.")
 
     if border < 0:
         raise ValueError("border cannot be negative.")
 
-    # Validate output directory
+    # Validate output directory.
     output_dir = output_dir.strip()
 
     if not output_dir:
         raise ValueError("Output directory cannot be empty.")
 
-    # Create output directory if it does not exist
+    # Create output directory if it does not exist.
     os.makedirs(output_dir, exist_ok=True)
 
-    # Build complete output path
+    # Build complete output path.
     output_path = os.path.join(output_dir, filename)
 
-    # Create QR code
+    # Create QR code.
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
@@ -109,13 +112,13 @@ def generate_qr_code(
     qr.add_data(data)
     qr.make(fit=True)
 
-    # Generate image
+    # Generate QR code image.
     img = qr.make_image(
         fill_color=fill_color,
         back_color=back_color,
     )
 
-    # Save image
+    # Save image.
     img.save(output_path)
 
     return os.path.abspath(output_path)
